@@ -1,3 +1,5 @@
+const DidactDOM = require('./dom');
+
 let nextUnitOfWork = null;
 let wipRoot = null;
 // last fiber tree we committed to the DOM
@@ -146,6 +148,10 @@ function workLoop(deadline) {
   while (nextUnitOfWork && !shouldYield) {
     nextUnitOfWork = performUnitOfWork(nextUnitOfWork);
     shouldYield = deadline.timeRemaining() < 1;
+  }
+
+  if (!nextUnitOfWork && wipRoot) {
+    commitRoot();
   }
 
   window.requestIdleCallback(workLoop);

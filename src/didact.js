@@ -1,6 +1,8 @@
 const DidactDOM = require('./dom');
 const DidactFiber = require('./fiber');
 
+window.requestIdleCallback(DidactFiber.workLoop);
+
 const Didact = {
   createElement: DidactDOM.createElement,
   render: DidactFiber.render,
@@ -15,6 +17,6 @@ const element = Didact.createElement(
 
 const container = document.getElementById('root');
 
-Didact.render(element, container);
+console.warn(container);
 
-window.requestIdleCallback(DidactFiber.workLoop);
+Didact.render(element, container);
