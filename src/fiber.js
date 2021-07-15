@@ -142,7 +142,6 @@ function reconcileChildren(wipFiber, elements) {
 }
 
 function workLoop(deadline) {
-  console.warn('workLoop!');
   let shouldYield = false;
 
   while (nextUnitOfWork && !shouldYield) {
