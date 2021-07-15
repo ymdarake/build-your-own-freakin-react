@@ -5,4 +5,5 @@ module.exports = {
   run: () => window.requestIdleCallback(DidactFiber.workLoop),
   createElement: DidactDOM.createElement,
   render: DidactFiber.render,
+  useState: DidactFiber.useState,
 };

@@ -196,4 +196,5 @@ function workLoop(deadline) {
 module.exports = {
   render,
   workLoop,
+  useState,
 };
