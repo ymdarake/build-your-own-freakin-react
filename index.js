@@ -19,7 +19,11 @@ function createTextElement(text) {
 }
 
 function render(element, container) {
-	const dom = document.createElement(element.type);
+	const dom = element.type  === "TEXT_ELEMENT" ? document.createTextNode("") : document.createElement(element.type);
+
+	Object.keys(element.props).filter(key => key !== "children").forEach(key => dom[key] = element.props[key]);
+	element.props.children.forEach(child => render(child, dom));
+
 	container.appendChild(dom);
 }
 
@@ -35,4 +39,6 @@ const element = Didact.createElement(
 	Didact.createElement("b")
 )
 
-console.dir(element, {depth: null})
+const container = document.getElementById("root");
+
+Didact.render(element, container);
