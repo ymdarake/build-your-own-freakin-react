@@ -31,9 +31,7 @@ function createDom(fiber) {
       ? document.createTextNode('')
       : document.createElement(fiber.type);
 
-  Object.keys(fiber.props)
-    .filter(isProperty)
-    .forEach((key) => (dom[key] = fiber.props[key]));
+  updateDom(dom, {}, fiber.props);
   return dom;
 }
 
