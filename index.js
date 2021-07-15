@@ -1,15 +1,33 @@
 const DidactDOM = require('./dom');
 
+let nextUnitOfWork = null;
+let wipRoot = null;
+
 function render(element, container) {
-  nextUnitOfWork = {
+  wipRoot = {
     dom: container,
     props: {
       children: [element],
     },
   };
+  nextUnitOfWork = null;
 }
 
-let nextUnitOfWork = null;
+// adds nodes to dom
+function commitRoot() {
+  commitWork(wipRoot.child);
+  wipRoot = null;
+}
+
+function commitWork(fiber) {
+  if (!fiber) {
+    return;
+  }
+  const domParent = fiber.parent.dom;
+  domParent.appendChild(fiber.dom);
+  commitWork(fiber.child);
+  commitWork(fiber.sibling);
+}
 
 function workLoop(deadline) {
   console.warn('workLoop!');
